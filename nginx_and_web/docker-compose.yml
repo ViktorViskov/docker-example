@@ -1,0 +1,43 @@
+version: "3.9"
+
+# networks:
+  # default:
+    # name: some-project-name
+
+  # including existing network
+  # db:
+    # name: db
+    # external: true
+
+services:
+
+  site:
+    build: ./site/
+    expose:
+      - "80"
+  
+  api:
+    build: ./api/
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx
+    ports: 
+      - "80:80"
+    depends_on:
+      - site
+      - api
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+
+
+    # networks:
+    # - default
+    # - db
+
+
+
+
+    
+  

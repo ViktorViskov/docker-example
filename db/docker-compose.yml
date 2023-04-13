@@ -1,0 +1,32 @@
+version: '3.9'
+
+networks:
+  db:
+    name: db
+    external: true
+
+services:
+
+  db:
+    image: mariadb:10.6
+    restart: always
+    expose: 
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+    networks:
+      - db
+    ports: 
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    expose: 
+      - "80"
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - db
+    ports: 
+      - "7000:80"
